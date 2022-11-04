@@ -10,10 +10,27 @@ VL_INLINE_OPT void Vcounter___024root___sequent__TOP__0(Vcounter___024root* vlSe
     if (false && vlSelf) {}  // Prevent unused
     Vcounter__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vcounter___024root___sequent__TOP__0\n"); );
+    // Init
+    CData/*7:0*/ __Vdly__count;
+    IData/*31:0*/ __Vdly__counter__DOT__stopcounter;
     // Body
-    vlSelf->count = ((IData)(vlSelf->rst) ? 0U : (0xffU 
-                                                  & ((IData)(vlSelf->count) 
-                                                     + (IData)(vlSelf->en))));
+    __Vdly__count = vlSelf->count;
+    __Vdly__counter__DOT__stopcounter = vlSelf->counter__DOT__stopcounter;
+    if (vlSelf->rst) {
+        __Vdly__count = 0U;
+        __Vdly__counter__DOT__stopcounter = 0U;
+    } else if (VL_LTS_III(32, 0U, vlSelf->counter__DOT__stopcounter)) {
+        __Vdly__counter__DOT__stopcounter = (vlSelf->counter__DOT__stopcounter 
+                                             - (IData)(1U));
+    } else if ((9U == (IData)(vlSelf->count))) {
+        __Vdly__counter__DOT__stopcounter = 2U;
+        __Vdly__count = 0U;
+    } else {
+        __Vdly__count = (0xffU & ((IData)(vlSelf->count) 
+                                  + (IData)(vlSelf->en)));
+    }
+    vlSelf->count = __Vdly__count;
+    vlSelf->counter__DOT__stopcounter = __Vdly__counter__DOT__stopcounter;
 }
 
 void Vcounter___024root___eval(Vcounter___024root* vlSelf) {
@@ -21,11 +38,13 @@ void Vcounter___024root___eval(Vcounter___024root* vlSelf) {
     Vcounter__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vcounter___024root___eval\n"); );
     // Body
-    if (((IData)(vlSelf->clk) & (~ (IData)(vlSelf->__Vclklast__TOP__clk)))) {
+    if ((((IData)(vlSelf->clk) & (~ (IData)(vlSelf->__Vclklast__TOP__clk))) 
+         | ((IData)(vlSelf->rst) & (~ (IData)(vlSelf->__Vclklast__TOP__rst))))) {
         Vcounter___024root___sequent__TOP__0(vlSelf);
     }
     // Final
     vlSelf->__Vclklast__TOP__clk = vlSelf->clk;
+    vlSelf->__Vclklast__TOP__rst = vlSelf->rst;
 }
 
 #ifdef VL_DEBUG

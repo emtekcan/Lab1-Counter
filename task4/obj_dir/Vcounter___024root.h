@@ -16,10 +16,10 @@ class Vcounter___024root final : public VerilatedModule {
     VL_IN8(clk,0,0);
     VL_IN8(rst,0,0);
     VL_IN8(en,0,0);
-    VL_OUT8(count,7,0);
+    CData/*7:0*/ top__DOT__count;
     CData/*0:0*/ __Vclklast__TOP__clk;
-    CData/*0:0*/ __Vclklast__TOP__rst;
-    IData/*31:0*/ counter__DOT__stopcounter;
+    VL_OUT16(bcd,11,0);
+    IData/*19:0*/ top__DOT__myDecoder__DOT__result;
 
     // INTERNAL VARIABLES
     Vcounter__Syms* const vlSymsp;

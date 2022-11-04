@@ -13,7 +13,7 @@ int main(int argc, char **argv, char **env) {
     Verilated::traceEverOn(true);
     VerilatedVcdC* tfp = new VerilatedVcdC;
     top->trace (tfp, 99);
-    tfp->open ("Vcounter2.vcd");
+    tfp->open ("Vcounter.vcd");
 
     //initialise simulation inputs
     top->clk = 1;
